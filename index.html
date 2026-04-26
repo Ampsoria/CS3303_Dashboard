@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - แบบประเมินเว็บไซต์แนะนำสถานที่ท่องเที่ยว จ.สมุทรปราการ</title>
+    <meta name="description" content="Dashboard แสดงผลการประเมินเว็บไซต์แนะนำสถานที่ท่องเที่ยวจังหวัดสมุทรปราการ">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-particles" id="particles"></div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logoGrad)"/>
+                    <path d="M8 22V12L16 8L24 12V22L16 26L8 22Z" stroke="white" stroke-width="1.5" fill="none"/>
+                    <circle cx="16" cy="16" r="3" fill="white" opacity="0.9"/>
+                    <defs><linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#f4945e"/><stop offset="1" stop-color="#ffcba4"/></linearGradient></defs>
+                </svg>
+            </div>
+            <div class="sidebar-title">
+                <span class="title-main">CS3303</span>
+                <span class="title-sub">Final Project</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#overview" class="nav-link active" data-section="overview">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                <span>ภาพรวม</span>
+            </a></li>
+            <li><a href="#demographics" class="nav-link" data-section="demographics">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>ข้อมูลผู้ตอบ</span>
+            </a></li>
+            <li><a href="#evaluation" class="nav-link" data-section="evaluation">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                <span>แบบประเมิน</span>
+            </a></li>
+            <li><a href="#requirements" class="nav-link" data-section="requirements">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span>แบบสอบถาม</span>
+            </a></li>
+            <li><a href="#comparison" class="nav-link" data-section="comparison">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                <span>เปรียบเทียบ</span>
+            </a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <span>CS3303 Final Project</span>
+        </div>
+    </nav>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header" id="mobileHeader">
+        <button class="menu-toggle" id="menuToggle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <span class="mobile-title">CS3303 Dashboard</span>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Overview Section -->
+        <section id="overview" class="section active">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">ภาพรวมผลการสำรวจ</h1>
+                    <p class="section-subtitle">แบบประเมินเว็บไซต์แนะนำสถานที่ท่องเที่ยว จังหวัดสมุทรปราการ</p>
+                </div>
+                <div class="header-actions">
+                    <div class="date-badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        <span>เมษายน 2569</span>
+                    </div>
+                    <a href="แบบประเมินเกี่ยวกับการพัฒนาเว็บไซต์แนะน.xlsx" download class="download-btn" id="dlEval">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span>แบบประเมิน.xlsx</span>
+                    </a>
+                    <a href="แบบสอบถามข้อมูลเกี่ยวกับการพัฒนาเว็บไซต.xlsx" download class="download-btn" id="dlReq">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span>แบบสอบถาม.xlsx</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stat Cards -->
+            <div class="stat-cards">
+                <div class="stat-card" id="statCard1">
+                    <div class="stat-icon purple">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">ผู้ตอบแบบประเมิน</span>
+                        <span class="stat-value" data-count="51">0</span>
+                        <span class="stat-desc">คน</span>
+                    </div>
+                </div>
+                <div class="stat-card" id="statCard2">
+                    <div class="stat-icon blue">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">ผู้ตอบแบบสอบถาม</span>
+                        <span class="stat-value" data-count="52">0</span>
+                        <span class="stat-desc">คน</span>
+                    </div>
+                </div>
+                <div class="stat-card" id="statCard3">
+                    <div class="stat-icon green">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">ค่าเฉลี่ยแบบประเมิน</span>
+                        <span class="stat-value" data-count="4.44" data-decimal="true">0</span>
+                        <span class="stat-desc">จาก 5.00</span>
+                    </div>
+                </div>
+                <div class="stat-card" id="statCard4">
+                    <div class="stat-icon orange">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">ค่าเฉลี่ยแบบสอบถาม</span>
+                        <span class="stat-value" data-count="4.61" data-decimal="true">0</span>
+                        <span class="stat-desc">จาก 5.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overview Charts -->
+            <div class="chart-grid-2">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>คะแนนเฉลี่ยแบบประเมิน (17 ข้อ)</h3>
+                        <span class="chart-badge">Bar Chart</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="overviewBarChart1"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>คะแนนเฉลี่ยแบบสอบถาม (6 ข้อ)</h3>
+                        <span class="chart-badge">Bar Chart</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="overviewBarChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demographics Section -->
+        <section id="demographics" class="section">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">ข้อมูลผู้ตอบแบบสอบถาม</h1>
+                    <p class="section-subtitle">เพศสภาพและสถานภาพของผู้ตอบ</p>
+                </div>
+            </div>
+
+            <div class="chart-grid-2">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>เพศสภาพ - แบบประเมิน</h3>
+                        <span class="chart-badge purple-badge">51 คน</span>
+                    </div>
+                    <div class="chart-container chart-sm">
+                        <canvas id="genderChart1"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>เพศสภาพ - แบบสอบถาม</h3>
+                        <span class="chart-badge blue-badge">52 คน</span>
+                    </div>
+                    <div class="chart-container chart-sm">
+                        <canvas id="genderChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-grid-2">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>สถานภาพ - แบบประเมิน</h3>
+                        <span class="chart-badge purple-badge">51 คน</span>
+                    </div>
+                    <div class="chart-container chart-sm">
+                        <canvas id="statusChart1"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>สถานภาพ - แบบสอบถาม</h3>
+                        <span class="chart-badge blue-badge">52 คน</span>
+                    </div>
+                    <div class="chart-container chart-sm">
+                        <canvas id="statusChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Evaluation Section -->
+        <section id="evaluation" class="section">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">ผลแบบประเมินเว็บไซต์</h1>
+                    <p class="section-subtitle">แบบประเมินเกี่ยวกับการพัฒนาเว็บไซต์แนะนำสถานที่ท่องเที่ยว จ.สมุทรปราการ</p>
+                </div>
+            </div>
+
+            <!-- Sub-section: UI Design -->
+            <div class="sub-section">
+                <h2 class="sub-title">
+                    <span class="sub-icon">🎨</span>
+                    ด้านการออกแบบหน้าจอ (ข้อ 3.1 - 3.6)
+                </h2>
+                <div class="chart-grid-2">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>คะแนนเฉลี่ยด้านการออกแบบ</h3>
+                            <span class="chart-badge">Horizontal Bar</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="evalDesignBar"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Radar Chart - การออกแบบ</h3>
+                            <span class="chart-badge">Radar</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="evalDesignRadar"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub-section: Comparison -->
+            <div class="sub-section">
+                <h2 class="sub-title">
+                    <span class="sub-icon">⚡</span>
+                    ด้านเปรียบเทียบความสะดวก (ข้อ 3.1.1 - 3.1.8)
+                </h2>
+                <div class="chart-grid-2">
+                    <div class="chart-card full-width">
+                        <div class="chart-header">
+                            <h3>เปรียบเทียบ: ค้นหาทั่วไป vs เว็บไซต์นี้</h3>
+                            <span class="chart-badge">Grouped Bar</span>
+                        </div>
+                        <div class="chart-container chart-lg">
+                            <canvas id="evalCompareBar"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub-section: Satisfaction -->
+            <div class="sub-section">
+                <h2 class="sub-title">
+                    <span class="sub-icon">⭐</span>
+                    ด้านความพึงพอใจต่อระบบ (ข้อ 3.2.1 - 3.2.3)
+                </h2>
+                <div class="chart-grid-2">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>ความพึงพอใจต่อระบบ</h3>
+                            <span class="chart-badge">Polar Area</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="evalSatisfactionPolar"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>การกระจายคะแนน ข้อ 3.2.3</h3>
+                            <span class="chart-badge">Doughnut</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="evalSatisfactionDoughnut"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Score Distribution Table -->
+            <div class="chart-card full-width">
+                <div class="chart-header">
+                    <h3>ตารางแจกแจงคะแนนทุกข้อ</h3>
+                    <span class="chart-badge">Heatmap Table</span>
+                </div>
+                <div class="table-wrapper">
+                    <table class="score-table" id="evalScoreTable">
+                        <thead>
+                            <tr>
+                                <th>ข้อ</th>
+                                <th>คะแนน 1</th>
+                                <th>คะแนน 2</th>
+                                <th>คะแนน 3</th>
+                                <th>คะแนน 4</th>
+                                <th>คะแนน 5</th>
+                                <th>ค่าเฉลี่ย</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Requirements Section -->
+        <section id="requirements" class="section">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">ผลแบบสอบถามความต้องการ</h1>
+                    <p class="section-subtitle">แบบสอบถามข้อมูลเกี่ยวกับการพัฒนาเว็บไซต์แนะนำสถานที่ท่องเที่ยว</p>
+                </div>
+            </div>
+
+            <div class="chart-grid-2">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>คะแนนเฉลี่ยความต้องการ</h3>
+                        <span class="chart-badge">Bar Chart</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="reqBarChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Radar Chart - ความต้องการ</h3>
+                        <span class="chart-badge">Radar</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="reqRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-grid-2">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>การกระจายคะแนนรายข้อ</h3>
+                        <span class="chart-badge">Stacked Bar</span>
+                    </div>
+                    <div class="chart-container chart-lg">
+                        <canvas id="reqStackedBar"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>ระดับความต้องการ</h3>
+                        <span class="chart-badge">Polar Area</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="reqPolarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Score Distribution Table -->
+            <div class="chart-card full-width">
+                <div class="chart-header">
+                    <h3>ตารางแจกแจงคะแนน</h3>
+                    <span class="chart-badge">Heatmap Table</span>
+                </div>
+                <div class="table-wrapper">
+                    <table class="score-table" id="reqScoreTable">
+                        <thead>
+                            <tr>
+                                <th>ข้อ</th>
+                                <th>คะแนน 1</th>
+                                <th>คะแนน 2</th>
+                                <th>คะแนน 3</th>
+                                <th>คะแนน 4</th>
+                                <th>คะแนน 5</th>
+                                <th>ค่าเฉลี่ย</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section id="comparison" class="section">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">เปรียบเทียบผลสำรวจ</h1>
+                    <p class="section-subtitle">เปรียบเทียบภาพรวมระหว่างแบบประเมินและแบบสอบถาม</p>
+                </div>
+            </div>
+
+            <div class="chart-grid-2">
+                <div class="chart-card full-width">
+                    <div class="chart-header">
+                        <h3>เปรียบเทียบค่าเฉลี่ยรวม</h3>
+                        <span class="chart-badge">Mixed Chart</span>
+                    </div>
+                    <div class="chart-container chart-lg">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-grid-2">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>สัดส่วนเพศ - เปรียบเทียบ</h3>
+                        <span class="chart-badge">Doughnut</span>
+                    </div>
+                    <div class="chart-container chart-sm">
+                        <canvas id="compGenderChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>สรุปผลการสำรวจ</h3>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-item">
+                            <div class="summary-icon green">✓</div>
+                            <div class="summary-text">
+                                <strong>ค่าเฉลี่ยรวมแบบประเมิน</strong>
+                                <p>4.44 จาก 5.00 (ดีมาก)</p>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-icon blue">✓</div>
+                            <div class="summary-text">
+                                <strong>ค่าเฉลี่ยรวมแบบสอบถาม</strong>
+                                <p>4.61 จาก 5.00 (ดีมาก)</p>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-icon purple">★</div>
+                            <div class="summary-text">
+                                <strong>ข้อที่ได้คะแนนสูงสุด (ประเมิน)</strong>
+                                <p>3.6 ง่ายต่อการเรียนรู้ (4.73)</p>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-icon orange">★</div>
+                            <div class="summary-text">
+                                <strong>ข้อที่ได้คะแนนสูงสุด (สอบถาม)</strong>
+                                <p>2.4 สถานที่ใกล้เคียง (4.75)</p>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-icon yellow">↑</div>
+                            <div class="summary-text">
+                                <strong>เว็บไซต์ vs ค้นหาทั่วไป</strong>
+                                <p>คะแนนเว็บไซต์สูงกว่าทุกด้าน</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="charts.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
