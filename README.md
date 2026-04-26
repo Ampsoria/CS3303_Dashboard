@@ -13,6 +13,12 @@
   <img src="https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white" />
 </p>
 
+<p align="center">
+  <a href="https://ampsoria.github.io/CS3303_Dashboard/">
+    <img src="https://img.shields.io/badge/🔴_LIVE_DEMO-Click_Here-F4945E?style=for-the-badge&logoColor=white" />
+  </a>
+</p>
+
 ---
 
 ## 📋 เกี่ยวกับโปรเจค
