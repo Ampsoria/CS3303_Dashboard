@@ -506,6 +506,194 @@ function renderScoreTables() {
     });
 }
 
+// ========== STATISTICS CHARTS (NEW) ==========
+
+function renderCategorySummaryChart() {
+    const cs = SURVEY_DATA.evaluation.categorySummaries;
+    const labels = ['การออกแบบ\nหน้าจอ', 'ค้นหาทั่วไป\n(Google)', 'เว็บไซต์\nที่พัฒนา', 'ความพึงพอใจ\nต่อระบบ', 'ภาพรวม\nทั้งหมด'];
+    const means = [cs.design.mean, cs.comparisonGeneral.mean, cs.comparisonWebsite.mean, cs.satisfaction.mean, cs.overall.mean];
+    const sds = [cs.design.sd, cs.comparisonGeneral.sd, cs.comparisonWebsite.sd, cs.satisfaction.sd, cs.overall.sd];
+    const ctx = document.getElementById('categorySummaryChart').getContext('2d');
+    chartInstances.catSummary = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [
+                { label: 'ค่าเฉลี่ย (x̄)', data: means, backgroundColor: [COLORS.purple.bg, COLORS.orange.bg, COLORS.green.bg, COLORS.blue.bg, COLORS.pink.bg], borderColor: [COLORS.purple.border, COLORS.orange.border, COLORS.green.border, COLORS.blue.border, COLORS.pink.border], borderWidth: 1, borderRadius: 8, borderSkipped: false },
+                { label: 'S.D.', data: sds, backgroundColor: 'rgba(200,162,214,0.3)', borderColor: '#c8a2d6', borderWidth: 1, borderRadius: 4, borderSkipped: false }
+            ]
+        },
+        options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.x.toFixed(2)}` } } },
+            scales: { x: { min: 0, max: 5, ticks: { stepSize: 1 }, grid: { color: 'rgba(230,170,120,0.1)' } }, y: { grid: { display: false } } }
+        }
+    });
+}
+
+function renderCategoryRadarChart() {
+    const cs = SURVEY_DATA.evaluation.categorySummaries;
+    const labels = ['การออกแบบหน้าจอ', 'ค้นหาทั่วไป (Google)', 'เว็บไซต์ที่พัฒนา', 'ความพึงพอใจต่อระบบ'];
+    const means = [cs.design.mean, cs.comparisonGeneral.mean, cs.comparisonWebsite.mean, cs.satisfaction.mean];
+    const ctx = document.getElementById('categoryRadarChart').getContext('2d');
+    chartInstances.catRadar = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels,
+            datasets: [{ label: 'ค่าเฉลี่ย', data: means, backgroundColor: 'rgba(244,148,94,0.15)', borderColor: '#f4945e', borderWidth: 2, pointBackgroundColor: '#f4945e', pointRadius: 6, pointHoverRadius: 8 }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            scales: { r: { beginAtZero: false, min: 3.5, max: 5, ticks: { stepSize: 0.5, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' }, angleLines: { color: 'rgba(230,170,120,0.15)' }, pointLabels: { font: { size: 12 } } } },
+            plugins: { legend: { display: false } }
+        }
+    });
+}
+
+function renderSDErrorBarChart() {
+    const d = SURVEY_DATA.evaluation;
+    const ctx = document.getElementById('sdErrorBarChart').getContext('2d');
+    const docxAvg = d.docxAverages;
+    const sd = d.sd;
+    const upper = docxAvg.map((v, i) => v + sd[i]);
+    const lower = docxAvg.map((v, i) => v - sd[i]);
+    chartInstances.sdError = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: d.labels,
+            datasets: [
+                { label: 'ค่าเฉลี่ย (DOCX)', data: docxAvg, backgroundColor: GRADIENT_COLORS.slice(0, 17), borderColor: BORDER_COLORS.slice(0, 17), borderWidth: 1, borderRadius: 6, borderSkipped: false, order: 2 },
+                { label: 'x̄ + S.D.', data: upper, type: 'line', borderColor: '#e88080', backgroundColor: 'transparent', borderWidth: 2, borderDash: [5, 5], pointRadius: 3, pointBackgroundColor: '#e88080', order: 1 },
+                { label: 'x̄ − S.D.', data: lower, type: 'line', borderColor: '#8bbde0', backgroundColor: 'transparent', borderWidth: 2, borderDash: [5, 5], pointRadius: 3, pointBackgroundColor: '#8bbde0', order: 1 }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(2)}` } } },
+            scales: {
+                y: { min: 2.5, max: 5.5, ticks: { stepSize: 0.5 }, grid: { color: 'rgba(230,170,120,0.1)' } },
+                x: { ticks: { maxRotation: 45, minRotation: 45, font: { size: 10 } }, grid: { display: false } }
+            }
+        }
+    });
+}
+
+function renderSDTables() {
+    // Evaluation SD table
+    const tbody1 = document.querySelector('#sdEvalTable tbody');
+    if (!tbody1) return;
+    const d1 = SURVEY_DATA.evaluation;
+    d1.labels.forEach((label, i) => {
+        const row = document.createElement('tr');
+        const lvl = d1.qualityLevels[i];
+        const badgeClass = lvl === 'มากที่สุด' ? 'quality-highest' : 'quality-high';
+        row.innerHTML = `<td>${label}</td><td class="avg-cell">${d1.averages[i].toFixed(2)}</td><td class="avg-cell">${d1.docxAverages[i].toFixed(2)}</td><td class="heat-cell" style="background:rgba(244,148,94,${d1.sd[i]*0.35})">${d1.sd[i].toFixed(2)}</td><td><span class="quality-badge ${badgeClass}">${lvl}</span></td>`;
+        tbody1.appendChild(row);
+    });
+    // Summary row
+    const sumRow = document.createElement('tr');
+    sumRow.className = 'summary-row';
+    const cs = d1.categorySummaries.overall;
+    sumRow.innerHTML = `<td><strong>ภาพรวมทั้งหมด</strong></td><td class="avg-cell"><strong>${d1.overallAverage.toFixed(2)}</strong></td><td class="avg-cell"><strong>${cs.mean.toFixed(2)}</strong></td><td class="heat-cell"><strong>${cs.sd.toFixed(2)}</strong></td><td><span class="quality-badge quality-high"><strong>${cs.level}</strong></span></td>`;
+    tbody1.appendChild(sumRow);
+
+    // Requirements SD table
+    const tbody2 = document.querySelector('#sdReqTable tbody');
+    if (!tbody2) return;
+    const d2 = SURVEY_DATA.requirements;
+    d2.labels.forEach((label, i) => {
+        const row = document.createElement('tr');
+        const lvl = d2.qualityLevels[i];
+        const badgeClass = lvl === 'มากที่สุด' ? 'quality-highest' : 'quality-high';
+        row.innerHTML = `<td>${label}</td><td class="avg-cell">${d2.averages[i].toFixed(2)}</td><td class="heat-cell" style="background:rgba(244,148,94,${d2.sd[i]*0.35})">${d2.sd[i].toFixed(2)}</td><td><span class="quality-badge ${badgeClass}">${lvl}</span></td>`;
+        tbody2.appendChild(row);
+    });
+}
+
+// ========== RESEARCH CHARTS (NEW) ==========
+
+function renderTTestComparisonChart() {
+    const tests = SURVEY_DATA.tTestResults;
+    const ctx = document.getElementById('ttestComparisonChart').getContext('2d');
+    chartInstances.ttestComp = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: tests.map(t => t.aspect),
+            datasets: [
+                { label: 'ค้นหาทั่วไป (Google)', data: tests.map(t => t.generalMean), backgroundColor: COLORS.orange.bg, borderColor: COLORS.orange.border, borderWidth: 1, borderRadius: 8 },
+                { label: 'ระบบที่พัฒนา', data: tests.map(t => t.developedMean), backgroundColor: COLORS.green.bg, borderColor: COLORS.green.border, borderWidth: 1, borderRadius: 8 }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(2)}` } },
+                datalabels: { display: true, color: '#3d2c1e', font: { weight: 'bold', size: 14 }, anchor: 'end', align: 'top', formatter: v => v.toFixed(2) }
+            },
+            scales: {
+                y: { min: 3.5, max: 5, ticks: { stepSize: 0.5 }, grid: { color: 'rgba(230,170,120,0.1)' } },
+                x: { grid: { display: false }, ticks: { font: { size: 12 } } }
+            }
+        }
+    });
+}
+
+function renderTTestCards() {
+    const container = document.getElementById('ttestCards');
+    if (!container) return;
+    SURVEY_DATA.tTestResults.forEach((t, i) => {
+        container.innerHTML += `
+        <div class="ttest-card">
+            <div class="ttest-header">
+                <span class="ttest-number">${i + 1}</span>
+                <h4>${t.aspect}</h4>
+            </div>
+            <div class="ttest-body">
+                <div class="ttest-pair">
+                    <div class="ttest-val general"><span class="ttest-label">ค้นหาทั่วไป</span><span class="ttest-mean">${t.generalMean.toFixed(2)}</span><span class="ttest-sd">S.D. = ${t.generalSD.toFixed(2)}</span><span class="quality-badge quality-high">${t.generalLevel}</span></div>
+                    <div class="ttest-vs">VS</div>
+                    <div class="ttest-val developed"><span class="ttest-label">ระบบที่พัฒนา</span><span class="ttest-mean">${t.developedMean.toFixed(2)}</span><span class="ttest-sd">S.D. = ${t.developedSD.toFixed(2)}</span><span class="quality-badge ${t.developedLevel === 'มากที่สุด' ? 'quality-highest' : 'quality-high'}">${t.developedLevel}</span></div>
+                </div>
+                <div class="ttest-stats">
+                    <span class="ttest-stat">t = ${t.tValue.toFixed(3)}</span>
+                    <span class="ttest-stat">df = ${t.df}</span>
+                    <span class="ttest-stat sig">p ${t.pValue}</span>
+                    <span class="significance-badge">มีนัยสำคัญที่ระดับ ${t.sigLevel} ✓</span>
+                </div>
+            </div>
+        </div>`;
+    });
+}
+
+function renderResearchFindings() {
+    const container = document.getElementById('researchFindings');
+    if (!container) return;
+    const rf = SURVEY_DATA.researchFindings;
+    const icons = ['📊', '⚡', '🔬', '🔬', '⭐'];
+    rf.keyFindings.forEach((f, i) => {
+        container.innerHTML += `<div class="finding-card"><span class="finding-icon">${icons[i]}</span><p>${f}</p></div>`;
+    });
+}
+
+function renderRecommendations() {
+    const container = document.getElementById('recommendationsList');
+    if (!container) return;
+    SURVEY_DATA.researchFindings.recommendations.forEach((r, i) => {
+        container.innerHTML += `<div class="recommendation-card"><span class="rec-number">${i + 1}</span><p>${r}</p></div>`;
+    });
+}
+
+function renderCredits() {
+    const container = document.getElementById('creditContent');
+    if (!container) return;
+    const rf = SURVEY_DATA.researchFindings;
+    container.innerHTML = `
+        <div class="credit-advisor"><span class="credit-role">อาจารย์ที่ปรึกษา</span><span class="credit-name">${rf.advisor}</span></div>
+        <div class="credit-researchers"><span class="credit-role">คณะผู้วิจัย</span><div class="credit-list">${rf.researchers.map(r => `<span class="credit-name">${r}</span>`).join('')}</div></div>
+        <div class="credit-date">${rf.date}</div>`;
+}
+
 // ========== INIT ALL CHARTS ==========
 
 function initAllCharts() {
@@ -525,4 +713,14 @@ function initAllCharts() {
     renderComparisonChart();
     renderCompGenderChart();
     renderScoreTables();
+    // New charts
+    renderCategorySummaryChart();
+    renderCategoryRadarChart();
+    renderSDErrorBarChart();
+    renderSDTables();
+    renderTTestComparisonChart();
+    renderTTestCards();
+    renderResearchFindings();
+    renderRecommendations();
+    renderCredits();
 }

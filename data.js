@@ -81,6 +81,28 @@ const SURVEY_DATA = {
             design: { indices: [0, 1, 2, 3, 4, 5], title: "การออกแบบหน้าจอ" },
             comparison: { indices: [6, 7, 8, 9, 10, 11, 12, 13], title: "เปรียบเทียบความสะดวก" },
             satisfaction: { indices: [14, 15, 16], title: "ความพึงพอใจต่อระบบ" }
+        },
+
+        // === NEW: Standard Deviation data from DOCX ===
+        sd: [0.96, 0.74, 0.80, 0.76, 0.81, 0.73, 0.84, 0.76, 0.97, 0.78, 0.78, 0.78, 0.94, 0.76, 0.80, 0.80, 0.80],
+
+        // === NEW: Quality level interpretations from DOCX ===
+        qualityLevels: [
+            "มาก", "มาก", "มาก", "มาก", "มากที่สุด", "มากที่สุด",
+            "มาก", "มากที่สุด", "มาก", "มาก", "มาก", "มากที่สุด",
+            "มาก", "มากที่สุด", "มาก", "มาก", "มาก"
+        ],
+
+        // === NEW: DOCX averages (from the research paper, may differ slightly) ===
+        docxAverages: [4.43, 4.49, 4.38, 4.43, 4.53, 4.64, 4.05, 4.55, 4.00, 4.45, 4.11, 4.63, 4.09, 4.55, 4.21, 4.23, 4.46],
+
+        // === NEW: Category summaries from DOCX ===
+        categorySummaries: {
+            design: { mean: 4.49, sd: 0.80, level: "มากที่สุด" },
+            comparisonGeneral: { mean: 4.06, sd: 0.88, level: "มาก", label: "ค้นหาแบบทั่วไป (Google)" },
+            comparisonWebsite: { mean: 4.55, sd: 0.77, level: "มากที่สุด", label: "เว็บไซต์ที่พัฒนา" },
+            satisfaction: { mean: 4.30, sd: 0.82, level: "มาก" },
+            overall: { mean: 4.37, sd: 0.84, level: "มาก" }
         }
     },
 
@@ -120,9 +142,77 @@ const SURVEY_DATA = {
             { "1": 0, "2": 0, "3": 4, "4": 17, "5": 31 }
         ],
 
+        // === NEW: S.D. from DOCX ===
+        sd: [0.57, 0.53, 0.47, 0.44, 0.58, 0.58],
+
+        // === NEW: Quality levels from DOCX ===
+        qualityLevels: ["มากที่สุด", "มากที่สุด", "มากที่สุด", "มากที่สุด", "มากที่สุด", "มากที่สุด"],
+
         suggestions: [
             "ให้มีปัญญาท้องเที่ยวมากขึ้น"
         ]
+    },
+
+    // === NEW: Paired t-test Results from DOCX ===
+    tTestResults: [
+        {
+            aspect: "ความสะดวกในการค้นหาข้อมูล",
+            generalMean: 4.06,
+            developedMean: 4.55,
+            generalSD: 0.76,
+            developedSD: 0.70,
+            tValue: 5.195,
+            df: 52,
+            pValue: "< .001",
+            significant: true,
+            sigLevel: ".05",
+            generalLevel: "มาก",
+            developedLevel: "มากที่สุด"
+        },
+        {
+            aspect: "การเข้าถึงข้อมูลสถานที่ท่องเที่ยว",
+            generalMean: 4.00,
+            developedMean: 4.45,
+            generalSD: 0.97,
+            developedSD: 0.78,
+            tValue: 3.342,
+            df: 52,
+            pValue: "< .05",
+            significant: true,
+            sigLevel: ".05",
+            generalLevel: "มาก",
+            developedLevel: "มาก"
+        }
+    ],
+
+    // === NEW: Research conclusions from DOCX ===
+    researchFindings: {
+        overallQuality: {
+            mean: 4.37,
+            sd: 0.84,
+            level: "มาก",
+            description: "ระบบที่พัฒนาขึ้นสามารถตอบสนองต่อความต้องการของผู้ใช้งานได้อย่างเหมาะสม"
+        },
+        keyFindings: [
+            "ด้าน UI Design มีคุณภาพระดับมากที่สุด (x̄ = 4.49, S.D. = 0.80)",
+            "ด้านความสะดวกของเว็บไซต์ที่พัฒนาอยู่ระดับดีมาก (x̄ = 4.55, S.D. = 0.77)",
+            "ระบบพัฒนามีความสะดวกสูงกว่าการค้นหาทั่วไปอย่างมีนัยสำคัญ (t = 5.195, p < .001)",
+            "ระบบฐานข้อมูลจัดหมวดหมู่ช่วยเข้าถึงข้อมูลตรงประเด็นมากกว่า (t = 3.342, p < .05)",
+            "ความพึงพอใจโดยรวมอยู่ระดับดีมาก (x̄ = 4.30, S.D. = 0.82)"
+        ],
+        recommendations: [
+            "ควรเพิ่มระบบค้นหาอัจฉริยะ (intelligent search) หรือระบบแนะนำ (recommendation system)",
+            "ควรพัฒนาโครงสร้างฐานข้อมูลให้รองรับข้อมูลจำนวนมากและขยายได้ในอนาคต"
+        ],
+        researchers: [
+            "นายกรวิชญ์ พุทธบารมี",
+            "นายปุณณภพ รุ่งวัฒนภักดิ์",
+            "นางสาวแมรี่เกรซ เฮอแนนเดซ์",
+            "นางสาวเมทินี แปงแก้ว",
+            "นางสาวปวีณ์กร แก้ววัฒนะ"
+        ],
+        advisor: "อาจารย์ยุวธิดา ชิวปรีชา",
+        date: "26 เมษายน 2569"
     }
 };
 

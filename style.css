@@ -822,3 +822,348 @@ body {
 .sidebar-overlay.active {
     display: block;
 }
+
+/* ========================================
+   Quality Badges
+   ======================================== */
+.quality-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.quality-badge.quality-highest {
+    background: rgba(125, 201, 160, 0.18);
+    color: #2d8a5e;
+    border: 1px solid rgba(125, 201, 160, 0.3);
+}
+
+.quality-badge.quality-high {
+    background: rgba(139, 189, 224, 0.18);
+    color: #3b7aab;
+    border: 1px solid rgba(139, 189, 224, 0.3);
+}
+
+.quality-text {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    font-family: var(--font-thai) !important;
+    color: var(--accent-warm) !important;
+}
+
+.summary-row td {
+    background: rgba(244, 148, 94, 0.06) !important;
+    border-top: 2px solid rgba(244, 148, 94, 0.2);
+}
+
+#statCard5::before { background: var(--gradient-primary); }
+#statCard6::before { background: var(--gradient-warm); }
+#statCard7::before { background: var(--gradient-peach); }
+#statCard8::before { background: var(--gradient-coral); }
+
+/* ========================================
+   T-Test Cards
+   ======================================== */
+.ttest-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ttest-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.ttest-card:hover {
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-glow);
+}
+
+.ttest-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ttest-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-en);
+    font-weight: 800;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.ttest-header h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.ttest-body {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.ttest-pair {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.ttest-val {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 18px 28px;
+    border-radius: var(--radius-md);
+    flex: 1;
+    min-width: 180px;
+}
+
+.ttest-val.general {
+    background: rgba(244, 148, 94, 0.06);
+    border: 1px solid rgba(244, 148, 94, 0.15);
+}
+
+.ttest-val.developed {
+    background: rgba(125, 201, 160, 0.06);
+    border: 1px solid rgba(125, 201, 160, 0.15);
+}
+
+.ttest-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.ttest-mean {
+    font-family: var(--font-en);
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.ttest-sd {
+    font-family: var(--font-en);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.ttest-vs {
+    font-family: var(--font-en);
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--text-muted);
+    padding: 8px 14px;
+    background: rgba(244, 148, 94, 0.08);
+    border-radius: var(--radius-sm);
+}
+
+.ttest-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+}
+
+.ttest-stat {
+    font-family: var(--font-en);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 4px 12px;
+    background: rgba(244, 148, 94, 0.06);
+    border-radius: 8px;
+}
+
+.ttest-stat.sig {
+    color: var(--accent-warm);
+    background: rgba(244, 148, 94, 0.12);
+}
+
+.significance-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 14px;
+    background: rgba(125, 201, 160, 0.15);
+    border: 1px solid rgba(125, 201, 160, 0.3);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2d8a5e;
+}
+
+/* ========================================
+   Research Findings
+   ======================================== */
+.research-findings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.finding-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.finding-card:hover {
+    border-color: var(--border-glow);
+    transform: translateX(6px);
+    box-shadow: var(--shadow-sm);
+}
+
+.finding-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.finding-card p {
+    font-size: 14px;
+    color: var(--text-primary);
+    line-height: 1.7;
+}
+
+/* ========================================
+   Recommendations
+   ======================================== */
+.recommendations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recommendation-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: rgba(244, 148, 94, 0.04);
+    border: 1px solid rgba(230, 170, 120, 0.12);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.recommendation-card:hover {
+    background: rgba(244, 148, 94, 0.08);
+    border-color: rgba(230, 170, 120, 0.25);
+    transform: translateX(6px);
+}
+
+.rec-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gradient-warm);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.recommendation-card p {
+    font-size: 14px;
+    color: var(--text-primary);
+    line-height: 1.7;
+}
+
+/* ========================================
+   Research Credit
+   ======================================== */
+.research-credit {
+    margin-top: 24px;
+}
+
+.credit-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.credit-advisor,
+.credit-researchers {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.credit-role {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.credit-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    padding: 6px 0;
+}
+
+.credit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.credit-date {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+@media (max-width: 640px) {
+    .ttest-pair {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .ttest-val {
+        min-width: 100%;
+    }
+    .ttest-stats {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
