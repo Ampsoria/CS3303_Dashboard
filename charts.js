@@ -74,7 +74,7 @@ function renderOverviewBarChart1() {
                 tooltip: { callbacks: { label: c => `ค่าเฉลี่ย: ${c.parsed.y.toFixed(2)}` } }
             },
             scales: {
-                y: { beginAtZero: false, min: 3.5, max: 5, ticks: { stepSize: 0.5 }, grid: { color: 'rgba(230,170,120,0.1)' } },
+                y: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1 }, grid: { color: 'rgba(230,170,120,0.1)' } },
                 x: { ticks: { maxRotation: 45, minRotation: 45, font: { size: 10 } }, grid: { display: false } }
             }
         }
@@ -102,7 +102,7 @@ function renderOverviewBarChart2() {
                 tooltip: { callbacks: { label: c => `ค่าเฉลี่ย: ${c.parsed.y.toFixed(2)}` } }
             },
             scales: {
-                y: { beginAtZero: false, min: 4.0, max: 5, ticks: { stepSize: 0.25 }, grid: { color: 'rgba(230,170,120,0.1)' } },
+                y: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1 }, grid: { color: 'rgba(230,170,120,0.1)' } },
                 x: { ticks: { font: { size: 11 } }, grid: { display: false } }
             }
         }
@@ -209,7 +209,7 @@ function renderEvalDesignBar() {
             indexAxis: 'y', responsive: true, maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                x: { min: 4.0, max: 5.0, ticks: { stepSize: 0.25 }, grid: { color: 'rgba(230,170,120,0.1)' } },
+                x: { beginAtZero: true, min: 0, max: 5.0, ticks: { stepSize: 1 }, grid: { color: 'rgba(230,170,120,0.1)' } },
                 y: { grid: { display: false }, ticks: { font: { size: 12 } } }
             }
         }
@@ -232,7 +232,7 @@ function renderEvalDesignRadar() {
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            scales: { r: { beginAtZero: false, min: 3.5, max: 5, ticks: { stepSize: 0.5, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' }, angleLines: { color: 'rgba(230,170,120,0.15)' }, pointLabels: { font: { size: 11 } } } },
+            scales: { r: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' }, angleLines: { color: 'rgba(230,170,120,0.15)' }, pointLabels: { font: { size: 11 } } } },
             plugins: { legend: { display: false } }
         }
     });
@@ -257,7 +257,7 @@ function renderEvalCompareBar() {
             responsive: true, maintainAspectRatio: false,
             plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(2)}` } } },
             scales: {
-                y: { beginAtZero: false, min: 3.5, max: 5, ticks: { stepSize: 0.5 }, grid: { color: 'rgba(230,170,120,0.1)' } },
+                y: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1 }, grid: { color: 'rgba(230,170,120,0.1)' } },
                 x: { grid: { display: false }, ticks: { font: { size: 13 } } }
             }
         }
@@ -281,7 +281,7 @@ function renderEvalSatisfactionPolar() {
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            scales: { r: { beginAtZero: false, min: 3.5, max: 5, ticks: { stepSize: 0.5, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' } } },
+            scales: { r: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' } } },
             plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } }
         }
     });
@@ -336,7 +336,7 @@ function renderReqBarChart() {
             responsive: true, maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                y: { min: 4.0, max: 5, ticks: { stepSize: 0.25 }, grid: { color: 'rgba(230,170,120,0.1)' } },
+                y: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1 }, grid: { color: 'rgba(230,170,120,0.1)' } },
                 x: { grid: { display: false }, ticks: { font: { size: 11 } } }
             }
         }
@@ -358,7 +358,7 @@ function renderReqRadarChart() {
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            scales: { r: { beginAtZero: false, min: 4.0, max: 5, ticks: { stepSize: 0.25, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' }, angleLines: { color: 'rgba(230,170,120,0.15)' }, pointLabels: { font: { size: 11 } } } },
+            scales: { r: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' }, angleLines: { color: 'rgba(230,170,120,0.15)' }, pointLabels: { font: { size: 11 } } } },
             plugins: { legend: { display: false } }
         }
     });
@@ -400,7 +400,7 @@ function renderReqPolarChart() {
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            scales: { r: { beginAtZero: false, min: 4.0, max: 5, ticks: { stepSize: 0.25, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' } } },
+            scales: { r: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' } } },
             plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } }
         }
     });
@@ -430,7 +430,7 @@ function renderComparisonChart() {
             responsive: true, maintainAspectRatio: false,
             plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: c => c.raw ? `${c.dataset.label}: ${c.raw.toFixed(2)}` : '' } } },
             scales: {
-                y: { min: 3.5, max: 5, ticks: { stepSize: 0.25 }, grid: { color: 'rgba(230,170,120,0.1)' } },
+                y: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1 }, grid: { color: 'rgba(230,170,120,0.1)' } },
                 x: { grid: { display: false } }
             }
         }
@@ -544,7 +544,7 @@ function renderCategoryRadarChart() {
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            scales: { r: { beginAtZero: false, min: 3.5, max: 5, ticks: { stepSize: 0.5, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' }, angleLines: { color: 'rgba(230,170,120,0.15)' }, pointLabels: { font: { size: 12 } } } },
+            scales: { r: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1, backdropColor: 'transparent' }, grid: { color: 'rgba(230,170,120,0.15)' }, angleLines: { color: 'rgba(230,170,120,0.15)' }, pointLabels: { font: { size: 12 } } } },
             plugins: { legend: { display: false } }
         }
     });
@@ -571,7 +571,7 @@ function renderSDErrorBarChart() {
             responsive: true, maintainAspectRatio: false,
             plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(2)}` } } },
             scales: {
-                y: { min: 2.5, max: 5.5, ticks: { stepSize: 0.5 }, grid: { color: 'rgba(230,170,120,0.1)' } },
+                y: { beginAtZero: true, min: 0, max: 6, ticks: { stepSize: 1 }, grid: { color: 'rgba(230,170,120,0.1)' } },
                 x: { ticks: { maxRotation: 45, minRotation: 45, font: { size: 10 } }, grid: { display: false } }
             }
         }
@@ -632,7 +632,7 @@ function renderTTestComparisonChart() {
                 datalabels: { display: true, color: '#3d2c1e', font: { weight: 'bold', size: 14 }, anchor: 'end', align: 'top', formatter: v => v.toFixed(2) }
             },
             scales: {
-                y: { min: 3.5, max: 5, ticks: { stepSize: 0.5 }, grid: { color: 'rgba(230,170,120,0.1)' } },
+                y: { beginAtZero: true, min: 0, max: 5, ticks: { stepSize: 1 }, grid: { color: 'rgba(230,170,120,0.1)' } },
                 x: { grid: { display: false }, ticks: { font: { size: 12 } } }
             }
         }
